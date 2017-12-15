@@ -1,22 +1,36 @@
 require('normalize.css/normalize.css');
-require('styles/App.css');
+require('styles/App.scss');
 
 import React from 'react';
 
-let yeomanImage = require('../images/yeoman.png');
+//将图片url添加进imageData中
+//通过配置webpack的json-loader实现require加载json文件，同步加载
+let jsondata = require('../data/imageData.json');
 
-class AppComponent extends React.Component {
+let imageDatas = (function (imageDatas) {
+
+  for (let i in imageDatas) {
+    imageDatas[i].imageUrl = '../images/' + imageDatas[i].fileName
+  }
+  return imageDatas;
+
+})(jsondata);
+
+
+class GalleryByReact extends React.Component {
   render() {
     return (
-      <div className="index">
-        <img src={yeomanImage} alt="Yeoman Generator" />
-        <div className="notice">Please edit <code>src/components/Main.js</code> to get started!</div>
-      </div>
+     <section className='stage'>
+       <section className='img-sec'>
+         <nav className='controller-nav'>
+
+         </nav>
+       </section>
+     </section>
     );
   }
 }
 
-AppComponent.defaultProps = {
-};
+GalleryByReact.defaultProps = {};
 
-export default AppComponent;
+export default GalleryByReact;
